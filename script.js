@@ -26,6 +26,8 @@ function parse(s, indent) {
         } else {
             write(indent + '  type: object');
         }
+    } else if (s === null) {
+        write(indent + 'type: string');
     } else if (typeof s === 'object') {
         write(indent + 'type: object');
         if (isEmpty(s)) {
@@ -40,6 +42,7 @@ function parse(s, indent) {
         }
     } else {
         write(indent + 'type: ' + (typeof s));
+        write(indent + 'example: ' + s);
     }
 }
 
