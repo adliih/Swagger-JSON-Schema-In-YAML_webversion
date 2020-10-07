@@ -14,7 +14,12 @@
     <div class="column">
         <h3>Input: JSON response</h3>
         <textarea title="JSON Input" id="json_data" style="width: 100%;height: 100%"></textarea>
+        <br>
         <input type="button" value="Submit" onclick="submit()">
+        <input id="is_with_example" type="checkbox" /><label for="">With Inline Example</label>
+        <br>
+        <br>
+        <input type="button" value="Submit as Reponse Schema With JSON Examples" onclick="submitAsReponseSchema()">
     </div>
     <div class="column">
         <h3>Output: JSON schema in YAML format</h3>

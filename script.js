@@ -2,10 +2,31 @@
  * Created by Bikram Pandit on 8/18/2018.
  */
 function submit() {
-    let s = document.getElementById("json_data").value;
+    resetOutput();
+    parse(parseJson(), '')
+}
+
+function submitAsReponseSchema() {
+    resetOutput();
+    write("description: ''");
+    write("schema:");
+    let json = parseJson();
+    parse(json, '  ');
+    write('examples:');
+    write('  application/json:');
+    writeLines(JSON.stringify(json, null, '  ').split('\n'), '    ');
+}
+
+function parseJson() {
+    return JSON.parse(document.getElementById("json_data").value);
+}
+
+function resetOutput() {
     document.getElementById('yaml_out').value = '';
-    let json_object = JSON.parse(s);
-    parse(json_object, '')
+}
+
+function isWithExample() {
+    return document.getElementById("is_with_example").checked;
 }
 
 function isEmpty(obj) {
@@ -42,11 +63,19 @@ function parse(s, indent) {
         }
     } else {
         write(indent + 'type: ' + (typeof s));
-        write(indent + 'example: ' + s);
+        if (isWithExample()) {
+            write(indent + 'example: ' + s);
+        }
     }
 }
 
 function write(s) {
     // console.log(s);
     document.getElementById('yaml_out').value += s + "\n";
+}
+
+function writeLines(lines, indent) {
+    lines.forEach(line => {
+        write(indent + line);
+    });
 }
